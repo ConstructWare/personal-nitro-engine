@@ -1,5 +1,6 @@
 ####################
-Nitro Engine v0.10.0
+Personal v0.0.0
+Forked From Nitro Engine v0.10.0
 ####################
 
 Introduction
@@ -134,9 +135,9 @@ This project is currently hosted on GitHub at:
 
     https://github.com/AntonioND/nitro-engine
 
-If you want to contact me (Antonio Niño Díaz) directly you can email me at:
+If you want to contact me  directly you can email me at:
 
-   antonio underscore nd at outlook dot com
+   wayert@yahoo.com
 
 License
 =======
@@ -163,3 +164,4 @@ Thanks to
 - **no$gba**: https://problemkaputt.de/gba.htm
 - **gbatek**: https://problemkaputt.de/gbatek.htm
 - **gbadev forums**: https://forum.gbadev.org/
+- **Antonio Niño Díaz**
