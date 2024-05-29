@@ -21,17 +21,17 @@ NE_Physics *NE_PhysicsCreate(NE_PhysicsTypes type)
         return NULL;
     }
 
-    // TODO
-    if (type == NE_BoundingSphere)
-    {
-        NE_DebugPrint("Bounding spheres not supported");
-        return NULL;
-    }
-    if (type == NE_Dot)
-    {
-        NE_DebugPrint("Dots not supported");
-        return NULL;
-    }
+// TODO
+//    if (type == NE_BoundingSphere)
+//    {
+//        NE_DebugPrint("Bounding spheres not supported");
+//        return NULL;
+//    }
+//    if (type == NE_Dot)
+//    {
+//        NE_DebugPrint("Dots not supported");
+//        return NULL;
+//    }
 
     NE_Physics *temp = calloc(1, sizeof(NE_Physics));
     if (temp == NULL)
@@ -137,7 +137,7 @@ void NE_PhysicsSystemEnd(void)
 void NE_PhysicsSetRadiusI(NE_Physics *pointer, int radius)
 {
     NE_AssertPointer(pointer, "NULL pointer");
-    NE_Assert(pointer->type == NE_BoundingSphere, "Not a bounding shpere");
+    NE_Assert(pointer->type == NE_BoundingSphere, "Not a bounding sphere");
     NE_Assert(radius >= 0, "Radius must be positive");
     pointer->radius = radius;
 }
@@ -166,19 +166,19 @@ void NE_PhysicsSetGravityI(NE_Physics *pointer, int gravity)
     pointer->gravity = gravity;
 }
 
-void NE_PhysicsSetFrictionI(NE_Physics *pointer, int friction)
-{
-    NE_AssertPointer(pointer, "NULL pointer");
-    NE_Assert(friction >= 0, "Friction must be positive");
-    pointer->friction = friction;
-}
+//void NE_PhysicsSetFrictionI(NE_Physics *pointer, int friction)
+//{
+//    NE_AssertPointer(pointer, "NULL pointer");
+//    NE_Assert(friction >= 0, "Friction must be positive");
+//    pointer->friction = friction;
+//}
 
-void NE_PhysicsSetBounceEnergy(NE_Physics *pointer, int percent)
-{
-    NE_AssertPointer(pointer, "NULL pointer");
-    NE_Assert(percent >= 0, "Percentage must be positive");
-    pointer->keptpercent = percent;
-}
+//void NE_PhysicsSetBounceEnergy(NE_Physics *pointer, int percent)
+//{
+//    NE_AssertPointer(pointer, "NULL pointer");
+//    NE_Assert(percent >= 0, "Percentage must be positive");
+//    pointer->keptpercent = percent;
+//}
 
 void NE_PhysicsEnable(NE_Physics *pointer, bool value)
 {
@@ -386,38 +386,40 @@ void NE_PhysicsUpdate(NE_Physics *pointer)
             }
         }
     }
-
+ 
     // Now, we get the module of speed in order to apply friction.
-    if (pointer->friction != 0)
-    {
-        pointer->xspeed <<= 10;
-        pointer->yspeed <<= 10;
-        pointer->zspeed <<= 10;
-        int _mod_ = mulf32(pointer->xspeed, pointer->xspeed);
-        _mod_ += mulf32(pointer->yspeed, pointer->yspeed);
-        _mod_ += mulf32(pointer->zspeed, pointer->zspeed);
-        _mod_ = sqrtf32(_mod_);
+    // Friction removed. This engine will stop the user or stop later depending on player input. Physics design choice.
+   
+ //   if (pointer->friction != 0)
+ //   {
+ //       pointer->xspeed <<= 10;
+ //       pointer->yspeed <<= 10;
+ //       pointer->zspeed <<= 10;
+ //       int _mod_ = mulf32(pointer->xspeed, pointer->xspeed);
+ //       _mod_ += mulf32(pointer->yspeed, pointer->yspeed);
+ //       _mod_ += mulf32(pointer->zspeed, pointer->zspeed);
+ //       _mod_ = sqrtf32(_mod_);
 
         // Check if module is very small -> speed = 0
-        if (_mod_ < pointer->friction)
-        {
-            pointer->xspeed = pointer->yspeed = pointer->zspeed = 0;
-        }
-        else
-        {
-            int newmod = _mod_ - pointer->friction;
-            // mod   --  newmod    ->  newspeed = speed * newmod / mod
-            // speed --  newspeed
-            int number = divf32(newmod, _mod_);
-            pointer->xspeed = mulf32(pointer->xspeed, number);
-            pointer->yspeed = mulf32(pointer->yspeed, number);
-            pointer->zspeed = mulf32(pointer->zspeed, number);
-            pointer->xspeed >>= 10;
-            pointer->yspeed >>= 10;
-            pointer->zspeed >>= 10;
-        }
-    }
-}
+ //       if (_mod_ < pointer->friction)
+ //       {
+ //           pointer->xspeed = pointer->yspeed = pointer->zspeed = 0;
+ //       }
+ //       else
+ //       {
+ //           int newmod = _mod_ - pointer->friction;
+ //           // mod   --  newmod    ->  newspeed = speed * newmod / mod
+ //           // speed --  newspeed
+ //          int number = divf32(newmod, _mod_);
+ //           pointer->xspeed = mulf32(pointer->xspeed, number);
+ //           pointer->yspeed = mulf32(pointer->yspeed, number);
+ //           pointer->zspeed = mulf32(pointer->zspeed, number);
+ //           pointer->xspeed >>= 10;
+ //           pointer->yspeed >>= 10;
+ //           pointer->zspeed >>= 10;
+ //       }
+ //   }
+ }
 
 bool NE_PhysicsCheckCollision(const NE_Physics *pointer1,
                               const NE_Physics *pointer2)
